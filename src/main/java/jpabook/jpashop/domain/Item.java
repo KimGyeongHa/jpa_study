@@ -14,6 +14,12 @@ public class Item {
     private int price;
     private int stockQuantity;
 
+    public Item(){}
+    public Item(String name, int price) {
+        this.name = name;
+        this.price = price;
+    }
+
     public Long getId() {
         return id;
     }
