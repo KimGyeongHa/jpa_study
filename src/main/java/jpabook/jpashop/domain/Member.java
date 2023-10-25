@@ -21,6 +21,11 @@ public class Member {
         orders.add(order);
         order.setMember(this);
     }
+
+    @OneToOne
+    @JoinColumn(name = "LOKER_ID")
+    private Locker locker;
+
     public Member(){}
 
     public Member(String name) {
