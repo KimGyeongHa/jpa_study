@@ -1,6 +1,7 @@
 package jpabook.jpashop;
 
 import jpabook.jpashop.domain.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,22 +19,19 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Order order = new Order(OrderStatus.ORDER);
+           Movie mv = new Movie();
+           mv.setActor("정봉찬");
+           mv.setDirector("정봉찬");
+           mv.setPrice(100000);
+           mv.setStockQuantity(100);
 
-            Member member = new Member("김경하");
-            member.AddOrderList(order);
-            em.persist(member);
+           em.persist(mv);
 
-            Item item = new Item();
-            item.setName("커피");
-            item.setPrice(50000);
-            em.persist(item);
+           em.flush();
+           em.clear();
+           Movie find_mv = em.find(Movie.class,mv.getId());
+           System.out.println(find_mv);
 
-            OrderItem orderItem = new OrderItem(item.getPrice(),2,item);
-            em.persist(orderItem);
-
-            order.addOrderItem(orderItem);
-            em.persist(order);
 
             tx.commit();
         }catch(Exception e) {
