@@ -73,7 +73,9 @@ default값은 DTYPE
 
 
 프록시 기초
+
 em.getReference() 
+
 1. 초기화요청-> 영속성 컨텍스트 -> 실제 entity생성 -> proxy객체에 저장
 
 2. proxy는 원본 엔티티를 상속받음으로 타입체크시 유의
