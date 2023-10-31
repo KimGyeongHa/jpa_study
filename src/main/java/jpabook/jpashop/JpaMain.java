@@ -19,21 +19,23 @@ public class JpaMain {
         tx.begin();
 
         try {
-           Movie mv = new Movie();
-           mv.setActor("정봉찬");
-           mv.setDirector("정봉찬");
-           mv.setPrice(100000);
-           mv.setStockQuantity(100);
 
-           em.persist(mv);
+          Parent pr = new Parent();
+          Child ch = new Child();
+          Child ch2 = new Child();
 
-           em.flush();
-           em.clear();
-           Movie find_mv = em.find(Movie.class,mv.getId());
-           System.out.println(find_mv);
+          pr.addChild(ch);
+          pr.addChild(ch2);
 
+          em.persist(pr);
 
-            tx.commit();
+          em.flush();
+          em.clear();
+
+          Parent find = em.find(Parent.class,pr.getId());
+          find.getChildList().remove(0);
+
+          tx.commit();
         }catch(Exception e) {
             tx.rollback();
         }finally {
