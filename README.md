@@ -100,28 +100,39 @@ em.close(), em.clear(), em.detach() 등
 *   23 -10 - 31
 *   **JPA 학습**
 *
- */
+*/
+
 fetch = FetchType.LAZY
+
 지연로딩을 사용하여 프록시로 조회
 
+
 FecthType.EAGER
+
 즉시로딩
+
 즉시로딩 사용 시 쿼리가 N + 1만큼 나옴으로 사용 X
 
 @ManyToOne , @OneToOne 
+
 default EAGER -> LAZY로 설정필요
 
-@OneToMany , @ManyToMany는 default 가 LAZY
+@OneToMany , @ManyToMany 
+
+default 가 LAZY
 
 CASCADE
+
 종속적으로 단일테이블 연결시에만 사용
 
 고아객체
 
 orphanRemoveal = true
+
 연관된 값이 빠지면 delete쿼리출력
 
-CASCADE.ALL & orphanRemoveal = true라면
+CASCADE.ALL & orphanRemoveal = true
+
 부모엔티티에서 자식의 생명주기 관리가능
 
 연관관계 편의메서드
