@@ -28,27 +28,27 @@
 		@JoinColumn(insertable=false,updatable=false) 로 읽기전용으로 필드를 사용한다.
 
 3. 일대일
-		  일대일 단방향
+
+   		일대일 단방향
+		OneToOne
+		JoinColumn
 		  
-		  OneToOne
-		  JoinColumn
+		대상테이블에 외래키를 관리하지못한다.
 		  
-		  대상테이블에 외래키를 관리하지못한다.
+		일대일 양방향
 		  
-		  일대일 양방향
-		  
-		  OneToOne
-		  Mappedby
-		  
-		  주테이블에 외래키는 유니크제약조건을 사용한다.
-		  
-		  해당 Entity를 주테이블로 만들고 대상테이블의 외래키를 관리
-		  
-		  객체지향적으로 봤을떈 주테이블에 외래키를 놓는것이 맞으며 db관점에서 봤을땐 
-		  대상테이블에 키를 놓는게 좋다고 본다. 
+		OneToOne
+		Mappedby
+				  
+		주테이블에 외래키는 유니크제약조건을 사용한다.
+				  
+		해당 Entity를 주테이블로 만들고 대상테이블의 외래키를 관리
+				  
+		객체지향적으로 봤을떈 주테이블에 외래키를 놓는것이 맞으며 db관점에서 봤을땐 
+		대상테이블에 키를 놓는게 좋다고 본다. 
 
 
-4. 다대다
+5. 다대다
 
 		쓰지말자
 				  
@@ -62,53 +62,60 @@
 	  2) mappedby는 양방향 연관관계에서 나오는 특이점 해결을 위해사용
 	  3) 양방향 연관관계일시 연관관계 편의메서드를 사용
 
-================================================================================
-/* 
-*   23 -10 - 30
-*   **JPA 학습**
-*
- */
+***
 
 상속관계 매핑
 
 1. 조인전략
+   
+		@Inheritance(strategy = InheritanceType.JOINED)
+		
+		구분타입을 두어 구분하여 각각 테이블로 매핑된다
+		
+		@DiscirminationColumn을 생략하면 구분 컬럼이 안들어간다.
 
 2. 단일테이블전략
 
-@Inheritance
-strategy default 싱글테이블 전략
+		@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+		
+		모든 값을 한 테이블에 모아두어 구현
+		@DiscirminationColumn을 생략해도 구분컬럼이 들어간다
 
-@DiscriminatorColumn 
-각 테이블을 구분할 수 있는 값을 넣는 컬럼
-default값은 DTYPE
+***
 
-@DiscriminatorValue
-각 테이블에서 구분할 값을 지정해주는 어노테이션
+매핑 정보 상속
 
+	@MappedSuperClass
+			
+	반복되는 컬럼들을 모아놓은 클래스로 상속받아 사용하면
+	반복을 줄일 수 있다.
+			
+	모든 클래스에 각각의 값을 넣어 구현
+
+
+***
 
 프록시 기초
 
-em.getReference() 
+	1. 초기화요청-> 영속성 컨텍스트 -> 실제 entity -> proxy객체에 저장
+			
+	2. proxy는 실제 Entity 를 상속받음, proxy != Entity 으로 타입체크시 유의
+			
+	3. 영속성 컨텍스트에 찾는 엔티티가 있다면 getReference를 호출해도
+	실제 엔티티를 반환한다. 
+	이미 프록시로 조회한 값이 존재한다면 find를 해도 proxy객체를 반환한다.
+			
+	4. 영속성 컨텍스트의 도움을 받을 수 없을 떄 프록시 초기화 시 문제발생
+	em.close(), em.clear(), em.detach() 등
+			
+	5. EntityMangerFactory.getPersistenceUnitUtil().isLoaded()
+	프록시가 초기화 되었는지 확인
+			
+	6. Hibernate.initialize();
+	프록시를 강제로 초기화
 
-1. 초기화요청-> 영속성 컨텍스트 -> 실제 entity생성 -> proxy객체에 저장
+***
 
-2. proxy는 원본 엔티티를 상속받음으로 타입체크시 유의
-== 이 아닌 instance of로 체크
-
-3. 영속성 컨텍스트에 찾는 엔티티가 있다면 getReference를 호출해도
-실제 엔티티를 반환한다. 
-이미 프록시로 조회한 값이 존재한다면 find를 해도 proxy객체를 반환한다.
-
-4. 영속성 컨텍스트의 도움을 받을 수 없을 떄 프록시 초기화 시 문제발생
-em.close(), em.clear(), em.detach() 등
-
-5. EntityMangerFactory.getPersistenceUnitUtil().isLoaded()
-프록시가 초기화 되었는지 확인
-
-6. Hibernate.initialize();
-프록시를 강제로 초기화
-
-=============================================================================
 /* 
 *   23 -10 - 31
 *   **JPA 학습**
