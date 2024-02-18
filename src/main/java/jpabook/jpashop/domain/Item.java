@@ -6,6 +6,10 @@ import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4e7a4fbdb5456af5b83dc1415a0a6e40deb5535c
 @DiscriminatorColumn
 public class Item {
     @Id @GeneratedValue

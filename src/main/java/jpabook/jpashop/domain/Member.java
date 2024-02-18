@@ -9,6 +9,13 @@ public class Member extends BaseEntity{
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
+<<<<<<< HEAD
+=======
+    private String name;
+
+    @Embedded
+    private EmbeddClass embeddClass;
+>>>>>>> 4e7a4fbdb5456af5b83dc1415a0a6e40deb5535c
 
     @OneToMany(mappedBy = "member",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
@@ -48,4 +55,17 @@ public class Member extends BaseEntity{
     public void setId(Long id) {
         this.id = id;
     }
+<<<<<<< HEAD
+=======
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+>>>>>>> 4e7a4fbdb5456af5b83dc1415a0a6e40deb5535c
 }

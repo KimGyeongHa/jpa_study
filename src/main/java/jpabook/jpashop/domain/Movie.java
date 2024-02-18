@@ -1,28 +1,30 @@
 package jpabook.jpashop.domain;
-
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 @Entity
+<<<<<<< HEAD
 public class Movie extends Item{
     private String movie_name;
     private int movie_price;
+=======
+public class Movie extends Item {
+    private String director;
+    private String actor;
+>>>>>>> 4e7a4fbdb5456af5b83dc1415a0a6e40deb5535c
 
-    public String getMovie_name() {
-        return movie_name;
+    public String getDirector() {
+        return director;
     }
 
-    public void setMovie_name(String movie_name) {
-        this.movie_name = movie_name;
+    public void setDirector(String director) {
+        this.director = director;
     }
 
-    public int getMovie_price() {
-        return movie_price;
+    public String getActor() {
+        return actor;
     }
 
-    public void setMovie_price(int movie_price) {
-        this.movie_price = movie_price;
+    public void setActor(String actor) {
+        this.actor = actor;
     }
 }

@@ -1,6 +1,7 @@
 package jpabook.jpashop;
 
 import jpabook.jpashop.domain.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,6 +25,7 @@ public class JpaMain {
         tx.begin();
 
         try {
+
             Member member = new Member();
             member.setName("김경하");
 
@@ -53,26 +55,7 @@ public class JpaMain {
 
             em.persist(order);
 
-            em.flush();
-            em.clear();
-
-            Order findOrder = em.find(Order.class,order.getId());
-            List<String> list1 = findOrder.getDelivery().getList();
-
-            list1.remove(0);
-            list1.add(0,"테스트삭제후등록");
-
-
-            //findOrder.getDelivery().setAddress(new Address("서울","중랑","555"));
-
-
-
-            em.flush();
-
-
-
-
-            tx.commit();
+          tx.commit();
         }catch(Exception e) {
             tx.rollback();
             e.printStackTrace();
