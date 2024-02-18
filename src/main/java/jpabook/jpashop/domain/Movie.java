@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-@DiscriminatorValue("M")
 public class Movie extends Item{
     private String movie_name;
     private int movie_price;
