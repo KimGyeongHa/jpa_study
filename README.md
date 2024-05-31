@@ -231,3 +231,20 @@
 		
 		oneToMany(CascadeType.ALL,orphanRemoval = true)
 		를 사용하자.
+  ***
+  #fetch join 페이징
+
+	컬렉션 페치 조인을 사용하면 페이징불가
+	컬렉션 페치조인은 1개만 사용하자, 컬렉션 둘 이상의 페치조인은 사용 X 
+	
+	
+	toOne관계는 fetch join 으로 가져오고,
+	컬렉션은 지연로딩으로 조회하면 페이징 가능 
+	
+	application.yml에서 default_batch_fetch_size값 설정 또는 @BatchSize로 해결
+	
+	@BatchSize 컬렉션에는 해당 컬럼위에 
+	Entity의 경우에는 class위에 @BatchSize를 이용
+	
+	@BatchSize를 사용 시
+	컬렉션 또는 프록시 객체를 한꺼번에 설정한 size만큼 IN쿼리로 조회
