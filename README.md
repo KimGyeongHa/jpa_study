@@ -232,7 +232,7 @@
 		oneToMany(CascadeType.ALL,orphanRemoval = true)
 		를 사용하자.
   ***
-  #fetch join 페이징
+  # fetch join 페이징
 
 	컬렉션 페치 조인을 사용하면 페이징불가
 	컬렉션 페치조인은 1개만 사용하자, 컬렉션 둘 이상의 페치조인은 사용 X 
