@@ -232,7 +232,25 @@
 		oneToMany(CascadeType.ALL,orphanRemoval = true)
 		를 사용하자.
   ***
-  # fetch join 페이징
+ # SPRING DATA JPA
+  ***
+ ## 페이징
+
+	조건, Pageable을 파라미터로 넘겨주어 Page로 반환받는다.
+	
+	PageReqeust로 페이지 사이즈,정렬, 정렬 할 필드이름 등을 넘겨주어 사용
+	
+	count쿼리를 따로 작성할 수있다.(repository에서 @query메소드 기능을 사용하여)
+	
+	Slice는 limit + 1 이 된 값을 받아온다.
+
+ 	Default 지정
+  
+	1. application.yml에서 data:web:pageable로 조절가능 
+	2. @PageableDefault를 활용해서 조절가능
+  	3. Page를 customizing하여 사용
+  ***
+  ## fetch join 페이징
 
 	컬렉션 페치 조인을 사용하면 페이징불가
 	컬렉션 페치조인은 1개만 사용하자, 컬렉션 둘 이상의 페치조인은 사용 X 
@@ -248,3 +266,40 @@
 	
 	@BatchSize를 사용 시
 	컬렉션 또는 프록시 객체를 한꺼번에 설정한 size만큼 IN쿼리로 조회
+ ***
+ ## 벌크성쿼리
+
+ 	@Modify 
+	@query("update ~")
+	repository에서 하게되면 벌크성 쿼리가 나가게된다.
+	벌크성 쿼리는 db에 값을 바로 전송하기 때문에 영속성컨텍스트 안에 남은 값은 db에 적용 된 값이 아니므로 주의해야함. 
+	벌크성 쿼리 이후 로직이 있다면 영속성 컨텍스트를 비워주고 해야한다.
+
+	@Modify에 clearAutomatically 설정을 true로 하여 해당 로직 수행이후 영속성컨텍스트를 비울 수 있다.
+ ***
+ ## @EntityGraph
+ 
+	fetch join을 쿼리메소드로 정의하는 대신 해당 어노테이션에 값을 적어주면 fetch join을 하는것과 같은 쿼리를 볼 수 있다
+ ***
+ ## 사용자정의 리포지토리
+
+	interface생성 후 구현체 클래스의 이름은 Impl(관례/ 바꿀수있으나 왠만하면 이걸로)로 해주어 사용자정의 리포지토리를 만들 수 있다.
+	JpaRepository를 상속받는 interface에 사용자정의로 만든 interface를 상속받아 사용하면된다.  
+ ***
+ ## Auditing
+	엔티티 생성,변경 변경한 사람, 시간을 추적하고 싶을때 사용
+	
+	@EntityLisners(AuditingEntityListner.class)
+	@MappedSuperClass
+	
+	@CreateDate
+	@LastModifyDate
+	@CreateBy
+	@UpadateBy
+	
+	SpringbootStarter에서 @EnableJpaAuditing으로 설정 후 사용
+	
+	@AuditorAware<String>을 @Bean으로 등록 후 사용하면
+	@CreateBy @UpdateBy를 통해 생성,수정한 사람을 등록할 수 있다.
+ ***
+ 
