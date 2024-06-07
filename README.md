@@ -304,4 +304,33 @@
 	@AuditorAware<String>을 @Bean으로 등록 후 사용하면
 	@CreateBy @UpdateBy를 통해 생성,수정한 사람을 등록할 수 있다.
  ***
+## 새로운 Entity 구별법
+
+	@GeneratedValue 사용할때에는 문제가 없지만
+	미 사용시 구분이 안됨으로 해당 Entity에 Persistable를 상속받아 사용하면 해결가능
+
+ ***
+
+ ## Projection
+	엔티티 대신 DTO를 편리하게 조회할 때 사용
+	
+	interface기반
+	
+	close projection
+	정확하게 매칭 된 컬럼을 처리하는 방식
+	
+	open projection
+	@Value("#{target.column + ' ' + target.column})
+	entity를 모두 가져와서 target으로 지정된 컬럼을 처리하는 방식
+	
+	class 기반의 projection
+	
+	class 생성자의 파라미터를 기반으로 프로젝션
+	
+	class 기반의 동적 projection
+	제네릭 타입으로 동적으로 프로젝션을 할 수 있다.
+	ex) <T> List<T> list(parameter1,Class<T>) 
+
+
+ 	
  
