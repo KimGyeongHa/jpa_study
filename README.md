@@ -331,6 +331,8 @@
 	제네릭 타입으로 동적으로 프로젝션을 할 수 있다.
 	ex) <T> List<T> list(parameter1,Class<T>) 
 
-
+## open-in-view
+영속성 컨텍스트가 데이터베이스 커넥션을 DB에 언제 돌려주냐를 설정
+default는 false, true 설정 시 트랜잭션이 필요한 곳에서 선언해주어야 함.
  	
  
